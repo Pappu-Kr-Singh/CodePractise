@@ -1,10 +1,15 @@
 import "./App.css";
+import Login from "./components/Login.jsx";
+import Profile from "./components/Profile.jsx";
+import UserContextProvider from "./context/UserContextProvider";
 
 function App() {
   return (
-    <>
-      <h1>Context API Practice</h1>
-    </>
+    <UserContextProvider>
+      <h1>Context Api Practice</h1>
+      <Login />
+      <Profile />
+    </UserContextProvider>
   );
 }
 
