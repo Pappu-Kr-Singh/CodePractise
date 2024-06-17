@@ -1,6 +1,6 @@
 import React from "react";
 
-function SideBar() {
+function SideBar({ selectedTab, setSelectedTab }) {
   return (
     <>
       <div
@@ -14,24 +14,35 @@ function SideBar() {
           <svg className="bi pe-none me-2" width="40" height="32">
             <use xlinkHref="#bootstrap"></use>
           </svg>
-          <span className="fs-4">Sidebar</span>
+          <span className="fs-4">Social Sphere</span>
         </a>
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item">
-            <a href="#" className="nav-link active" aria-current="page">
+          <li className="nav-item" onClick={() => setSelectedTab("Home")}>
+            <a
+              href="#"
+              className={`nav-link  fw-bold ${
+                selectedTab === "Home" && "active"
+              }`}
+              aria-current="page"
+            >
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#home"></use>
               </svg>
               Home
             </a>
           </li>
-          <li>
-            <a href="#" className="nav-link link-body-emphasis">
+          <li onClick={() => setSelectedTab("Create Post")}>
+            <a
+              href="#"
+              className={`nav-link fw-bold link-body-emphasis ${
+                selectedTab === "Create Post" && "active"
+              }`}
+            >
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#speedometer2"></use>
               </svg>
-              Dashboard
+              Create Post
             </a>
           </li>
           <li>
@@ -39,7 +50,7 @@ function SideBar() {
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#table"></use>
               </svg>
-              Orders
+              Profile
             </a>
           </li>
           <li>
