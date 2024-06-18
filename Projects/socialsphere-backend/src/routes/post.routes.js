@@ -7,12 +7,23 @@ import {
 } from "../controllers/post.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 const router = Router();
 
 router.use(verifyJWT);
 
+// router.post("/", createPost);
+router.route("/").post(
+  upload.fields([
+    {
+      name: "postImg",
+      maxCount: 1,
+    },
+  ]),
+
+  createPost
+);
 router.get("/", getAllPost);
-router.post("/", createPost);
 router.route("/:postId").delete(deletePost).patch(updatePost);
 
 // router.patch("/:postId", updatePost);

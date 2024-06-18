@@ -1,5 +1,5 @@
 import mongoose, { isValidObjectId } from "mongoose";
-import { Post } from "../modles/post.model.js";
+import { Post } from "../models/post.model.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -29,9 +29,11 @@ const getAllPost = asyncHandler(async (req, res) => {
 const createPost = asyncHandler(async (req, res) => {
   // Create post
 
-  const { title, description } = req.body;
+  const { title, description, reactions } = req.body;
 
-  if (!title || !description) {
+  console.log("Req. body ===== ", title, description, reactions);
+
+  if (!title || !description || !reactions) {
     throw new ApiError(401, "title and description are required");
   }
 
@@ -48,10 +50,11 @@ const createPost = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Error while uploading the postImg to cloudinary");
   }
 
-  const post = await Post.create(req.user._id, {
+  const post = await Post.create({
     title: title,
     description: description,
     owner: req.user._id,
+    reactions: reactions,
     postImg: postImg.url,
   });
 
@@ -68,6 +71,7 @@ const updatePost = asyncHandler(async (req, res) => {
   // update post
 
   const { postId } = req.params;
+  const { title, description } = req.body;
   const { postImgLocalPath } = req.file?.path;
 
   if (!isValidObjectId(postId)) {
@@ -90,7 +94,7 @@ const updatePost = asyncHandler(async (req, res) => {
     postId,
     {
       title,
-      description,
+      postDescription: description,
       postImg: postImg.url,
     },
     {

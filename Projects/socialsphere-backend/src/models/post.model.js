@@ -11,9 +11,13 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    postDescription: {
+    description: {
       type: String,
       required: true,
+    },
+    reactions: {
+      type: Number,
+      default: 0,
     },
     owner: {
       type: Schema.Types.ObjectId,
