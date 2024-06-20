@@ -4,6 +4,7 @@ import {
   createPost,
   updatePost,
   deletePost,
+  getAllPostById,
 } from "../controllers/post.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -13,17 +14,20 @@ const router = Router();
 router.use(verifyJWT);
 
 // router.post("/", createPost);
-router.route("/").post(
-  upload.fields([
-    {
-      name: "postImg",
-      maxCount: 1,
-    },
-  ]),
+router
+  .route("/")
+  .get(getAllPost)
+  .post(
+    upload.fields([
+      {
+        name: "postImg",
+        maxCount: 1,
+      },
+    ]),
 
-  createPost
-);
-router.get("/", getAllPost);
+    createPost
+  );
+router.get("/:userId", getAllPostById);
 router.route("/:postId").delete(deletePost).patch(updatePost);
 
 // router.patch("/:postId", updatePost);

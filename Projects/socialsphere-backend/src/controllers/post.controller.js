@@ -5,9 +5,11 @@ import ApiResponse from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
-const getAllPost = asyncHandler(async (req, res) => {
+const getAllPostById = asyncHandler(async (req, res) => {
   // Todo- Get all post
   const { userId } = req.params;
+  // console.log(userId);
+  // 667069c207c28a1763dc109c
 
   if (!isValidObjectId(userId)) {
     throw new ApiError(401, "invalid UserId");
@@ -23,6 +25,22 @@ const getAllPost = asyncHandler(async (req, res) => {
     .status(200)
     .json(
       new ApiResponse(200, post, "All post have been fetched successfully")
+    );
+});
+
+const getAllPost = asyncHandler(async (req, res) => {
+  // Fetch all posts
+  const posts = await Post.find({});
+  console.log("Found posts: ", posts);
+
+  if (!posts.length) {
+    throw new ApiError(401, "No posts found");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, posts, "All posts have been fetched successfully")
     );
 });
 
@@ -133,4 +151,4 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, post, "Post has been deleted Successfully"));
 });
 
-export { getAllPost, createPost, deletePost, updatePost };
+export { getAllPost, createPost, deletePost, updatePost, getAllPostById };

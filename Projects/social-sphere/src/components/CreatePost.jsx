@@ -1,30 +1,41 @@
 import React, { useContext, useRef } from "react";
 import { PostList } from "../store/post-list-store";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const { addPost } = useContext(PostList);
+  // const navigate = useNavigate(); // this is used to navigate to a dynamic url after doing any task
+  // Todo-- ad this navigate after addPost()  -> navigate("/")
 
   const userIdElement = useRef();
   const postTitleElement = useRef();
   const reactionsElement = useRef();
   const bodyElement = useRef();
   const tagsElement = useRef();
-  // const postImgElement = useRef();
+  const postImgElement = useRef();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const userId = userIdElement.current.value;
-    const postTitle = postTitleElement.current.value;
-    const reactions = reactionsElement.current.value;
-    const postBody = bodyElement.current.value;
-    const tags = tagsElement.current.value.split(" ");
-    // const postImg = postImgElement.current.target.files[0];
+  const handleSubmit = async (event) => {
+    const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
 
-    userIdElement.current.value = "";
-    postTitleElement.current.value = "";
-    reactionsElement.current.value = "";
-    bodyElement.current.value = "";
-    tagsElement.current.value = "";
+    try {
+      const response = await fetch("http://localhost:3000/api/posts", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const newPost = await response.json();
+        addPost(newPost);
+      } else {
+        const errorText = await response.text();
+        throw new Error(`Error: ${response.status} ${errorText}`);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
 
     addPost(userId, postTitle, reactions, postBody, tags);
   };
@@ -98,7 +109,7 @@ const CreatePost = () => {
           />
         </div>
 
-        {/* <div className="mb-3">
+        <div className="mb-3">
           <label htmlFor="postImg" className="form-label">
             Choose your Post Image
           </label>
@@ -109,7 +120,7 @@ const CreatePost = () => {
             ref={postImgElement}
             placeholder="Select your post image"
           />
-        </div> */}
+        </div>
 
         <button type="submit" className="btn btn-primary">
           Publish Post

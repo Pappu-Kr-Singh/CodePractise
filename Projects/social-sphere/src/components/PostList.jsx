@@ -10,20 +10,20 @@ function PostList() {
   const [fetching, setFetching] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    // const controller = new AbortController();
+    // const signal = controller.signal;
 
     setFetching(true);
-    fetch("https://dummyjson.com/posts", { signal })
+    fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then((data) => {
         addInitialPosts(data.posts);
         setFetching(false);
       });
 
-    return () => {
-      controller.abort(); // this method is used for stoping/abortting the server request if we go to any other page
-    };
+    // return () => {
+    //   controller.abort(); // this method is used for stoping/abortting the server request if we go to any other page
+    // };
   }, []);
 
   return (
