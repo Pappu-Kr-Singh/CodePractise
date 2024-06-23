@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./components/SignUp.jsx";
 import CreatePost from "./components/CreatePost.jsx";
 import PostList from "./components/PostList.jsx";
+import Login from "./components/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <PostList /> },
       { path: "/sign-up", element: <SignUp /> },
+      { path: "/login", element: <Login /> },
       { path: "/create-post", element: <CreatePost /> },
     ],
   },

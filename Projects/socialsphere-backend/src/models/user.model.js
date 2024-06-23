@@ -30,9 +30,9 @@ const userSchema = new Schema(
       type: String, // cloudnary url
       required: true,
     },
-    coverImage: {
-      type: String, // cloudnary url
-    },
+    // coverImage: {
+    //   type: String, // cloudnary url
+    // },
     watchHistory: [
       {
         type: Schema.Types.ObjectId,

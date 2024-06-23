@@ -47,12 +47,12 @@ function SideBar() {
             </Link>
           </li>
           <li>
-            <a href="#" className="nav-link link-body-emphasis">
+            <Link to={"/login"} className="nav-link link-body-emphasis">
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#grid"></use>
               </svg>
-              Products
-            </a>
+              Login
+            </Link>
           </li>
           <li>
             <a href="#" className="nav-link link-body-emphasis">
