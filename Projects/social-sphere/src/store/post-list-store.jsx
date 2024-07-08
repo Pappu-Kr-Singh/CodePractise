@@ -33,11 +33,11 @@ const PostListProvider = ({ children }) => {
     dispatchPostList({
       type: "ADD_POST",
       payload: {
-        id: Date.now(),
+        // id: Date.now(),
         title: postTitle,
         body: postBody,
         reactions: reactions,
-        userID: userId,
+        owner: userId,
         // img: postImg,
         tags: tags,
       },

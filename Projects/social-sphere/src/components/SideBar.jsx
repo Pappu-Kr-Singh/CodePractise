@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function SideBar() {
+function SideBar({ isAuthenticated }) {
+  // state to track if the user is authenticated
+  const [auth, setAuth] = useState(false);
+
+  //check authentication status on component mount
+
+  useEffect(() => {
+    // You can replace this with an actual check
+    if (isAuthenticated) {
+      setAuth(true);
+    }
+    // console.log("Token", token);
+    // if (token) {
+    //   setIsAuthenticated(true);
+    // }
+  }, []);
+
   return (
     <>
       <div
@@ -38,30 +54,36 @@ function SideBar() {
               Create Post
             </Link>
           </li>
-          <li>
-            <Link to={"/sign-up"} className="nav-link link-body-emphasis">
-              <svg className="bi pe-none me-2" width="16" height="16">
-                <use xlinkHref="#table"></use>
-              </svg>
-              SignUp
-            </Link>
-          </li>
-          <li>
-            <Link to={"/login"} className="nav-link link-body-emphasis">
-              <svg className="bi pe-none me-2" width="16" height="16">
-                <use xlinkHref="#grid"></use>
-              </svg>
-              Login
-            </Link>
-          </li>
-          <li>
-            <a href="#" className="nav-link link-body-emphasis">
-              <svg className="bi pe-none me-2" width="16" height="16">
-                <use xlinkHref="#people-circle"></use>
-              </svg>
-              Customers
-            </a>
-          </li>
+
+          {!auth ? (
+            <>
+              <li>
+                <Link to={"/sign-up"} className="nav-link link-body-emphasis">
+                  <svg className="bi pe-none me-2" width="16" height="16">
+                    <use xlinkHref="#table"></use>
+                  </svg>
+                  SignUp
+                </Link>
+              </li>
+              <li>
+                <Link to={"/login"} className="nav-link link-body-emphasis">
+                  <svg className="bi pe-none me-2" width="16" height="16">
+                    <use xlinkHref="#grid"></use>
+                  </svg>
+                  Login
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <a href="#" className="nav-link link-body-emphasis">
+                <svg className="bi pe-none me-2" width="16" height="16">
+                  <use xlinkHref="#people-circle"></use>
+                </svg>
+                Logout
+              </a>
+            </li>
+          )}
         </ul>
         <hr />
         <div className="dropdown">

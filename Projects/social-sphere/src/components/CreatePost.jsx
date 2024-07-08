@@ -1,47 +1,241 @@
-import React, { useContext, useRef } from "react";
+// import React, { useContext, useRef, useState } from "react";
+// import { PostList } from "../store/post-list-store";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+
+// const CreatePost = () => {
+//   const { addPost } = useContext(PostList);
+//   const [formData, setFormData] = useState({
+//     userId: "",
+//     postTitle: "",
+//     reactions: "",
+//     postBody: "",
+//     tags: "",
+//     postImg: null,
+//   });
+//   const navigate = useNavigate(); // this is used to navigate to a dynamic url after doing any task
+//   // Todo-- ad this navigate after addPost()  -> navigate("/")
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleFileChange = (e) => {
+//     const { name, files } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: files[0],
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const data = new FormData();
+//     data.append("userId", formData.userId);
+//     data.append("title", formData.postTitle);
+//     data.append("description", formData.postBody);
+//     data.append("tags", formData.tags);
+//     data.append("postImg", formData.postImg);
+
+//     try {
+//       const response = await axios.post(
+//         "http://localhost:3000/api/v1/posts",
+//         data,
+//         {
+//           headers: {
+//             "Content-Type": "multipart/form-data",
+//           },
+//         }
+//       );
+//       console.log(response.data);
+//       alert("Post Created Successfully");
+
+//       navigate("/login");
+//     } catch (error) {
+//       console.error("Error during creating post:", error.response.data);
+//       // alert();
+//     }
+//     addPost(userId, postTitle, reactions, postBody, tags);
+//   };
+
+//   return (
+//     <div className="creat__post">
+//       <form className="form" onSubmit={handleSubmit}>
+//         <div className="mb-3">
+//           <label htmlFor="userId" className="form-label">
+//             Enter Your User Id here
+//           </label>
+//           <input
+//             type="text"
+//             className="form-control"
+//             id="userId"
+//             value={formData.userId}
+//             onChange={handleChange}
+//             placeholder="Enter your user Id "
+//           />
+//         </div>
+//         <div className="mb-3">
+//           <label htmlFor="title" className="form-label">
+//             Post Title
+//           </label>
+//           <input
+//             type="text"
+//             className="form-control"
+//             value={formData.postTitle}
+//             onChange={handleChange}
+//             id="title"
+//             placeholder="your titile.."
+//           />
+//         </div>
+
+//         <div className="mb-3">
+//           <label htmlFor="reactions" className="form-label">
+//             No. of Reactions
+//           </label>
+//           <input
+//             type="text"
+//             className="form-control"
+//             id="reactions"
+//             onChange={handleChange}
+//             value={formData.reactions}
+//             placeholder="how many people reacted to this post"
+//           />
+//         </div>
+
+//         <div className="mb-3">
+//           <label htmlFor="body" className="form-label">
+//             Content
+//           </label>
+//           <textarea
+//             rows="4"
+//             cols="50"
+//             type="text"
+//             className="form-control"
+//             id="body"
+//             onChange={handleChange}
+//             value={formData.postBody}
+//             placeholder="tell us more about it"
+//           />
+//         </div>
+
+//         <div className="mb-3">
+//           <label htmlFor="tegs" className="form-label">
+//             Enter your hashtags here
+//           </label>
+//           <input
+//             type="text"
+//             className="form-control"
+//             id="tags"
+//             onChange={handleChange}
+//             value={formData.tags}
+//             placeholder="please enter your tags using space"
+//           />
+//         </div>
+
+//         <div className="mb-3">
+//           <label htmlFor="postImg" className="form-label">
+//             Choose your Post Image
+//           </label>
+//           <input
+//             type="file"
+//             className="form-control"
+//             id="postImg"
+//             onChange={handleFileChange}
+//             value={formData.postImg}
+//             placeholder="Select your post image"
+//           />
+//         </div>
+
+//         <button type="submit" className="btn btn-primary">
+//           Publish Post
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default CreatePost;
+
+import React, { useContext, useState } from "react";
 import { PostList } from "../store/post-list-store";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const { addPost } = useContext(PostList);
-  // const navigate = useNavigate(); // this is used to navigate to a dynamic url after doing any task
-  // Todo-- ad this navigate after addPost()  -> navigate("/")
+  const [formData, setFormData] = useState({
+    userId: "",
+    postTitle: "",
+    reactions: "",
+    postBody: "",
+    tags: "",
+    postImg: null,
+  });
+  const navigate = useNavigate(); // this is used to navigate to a dynamic url after doing any task
 
-  const userIdElement = useRef();
-  const postTitleElement = useRef();
-  const reactionsElement = useRef();
-  const bodyElement = useRef();
-  const tagsElement = useRef();
-  const postImgElement = useRef();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFormData({
+      ...formData,
+      [name]: files[0],
+    });
+  };
 
   const handleSubmit = async (event) => {
-    const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append("owner", formData.userId);
+    data.append("title", formData.postTitle);
+    data.append("description", formData.postBody);
+    data.append("reactions", formData.reactions);
+    data.append("tags", formData.tags);
+    data.append("postImg", formData.postImg);
 
     try {
-      const response = await fetch("http://localhost:3000/api/posts", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/posts",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      alert("Post Created Successfully");
 
-      if (response.ok) {
-        const newPost = await response.json();
-        addPost(newPost);
-      } else {
-        const errorText = await response.text();
-        throw new Error(`Error: ${response.status} ${errorText}`);
-      }
+      navigate("/login");
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error("Error during creating post:", error.response.data);
+      alert("Error creating post, please try again.");
     }
 
-    addPost(userId, postTitle, reactions, postBody, tags);
+    // Call addPost with correct parameters
+    addPost(
+      formData.userId,
+      formData.postTitle,
+      formData.reactions,
+      formData.postBody,
+      formData.tags
+    );
   };
 
   return (
-    <div className="creat__post">
+    <div className="create__post">
       <form className="form" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="userId" className="form-label">
@@ -51,7 +245,9 @@ const CreatePost = () => {
             type="text"
             className="form-control"
             id="userId"
-            ref={userIdElement}
+            name="userId"
+            value={formData.userId}
+            onChange={handleChange}
             placeholder="Enter your user Id "
           />
         </div>
@@ -63,8 +259,10 @@ const CreatePost = () => {
             type="text"
             className="form-control"
             id="title"
-            ref={postTitleElement}
-            placeholder="your titile.."
+            name="postTitle"
+            value={formData.postTitle}
+            onChange={handleChange}
+            placeholder="Your title..."
           />
         </div>
 
@@ -76,8 +274,10 @@ const CreatePost = () => {
             type="text"
             className="form-control"
             id="reactions"
-            ref={reactionsElement}
-            placeholder="how many people reacted to this post"
+            name="reactions"
+            value={formData.reactions}
+            onChange={handleChange}
+            placeholder="How many people reacted to this post"
           />
         </div>
 
@@ -88,24 +288,27 @@ const CreatePost = () => {
           <textarea
             rows="4"
             cols="50"
-            type="text"
             className="form-control"
             id="body"
-            ref={bodyElement}
-            placeholder="tell us more about it"
+            name="postBody"
+            value={formData.postBody}
+            onChange={handleChange}
+            placeholder="Tell us more about it"
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="tegs" className="form-label">
+          <label htmlFor="tags" className="form-label">
             Enter your hashtags here
           </label>
           <input
             type="text"
             className="form-control"
             id="tags"
-            ref={tagsElement}
-            placeholder="please enter your tags using space"
+            name="tags"
+            value={formData.tags}
+            onChange={handleChange}
+            placeholder="Please enter your tags using space"
           />
         </div>
 
@@ -117,8 +320,8 @@ const CreatePost = () => {
             type="file"
             className="form-control"
             id="postImg"
-            ref={postImgElement}
-            placeholder="Select your post image"
+            name="postImg"
+            onChange={handleFileChange}
           />
         </div>
 

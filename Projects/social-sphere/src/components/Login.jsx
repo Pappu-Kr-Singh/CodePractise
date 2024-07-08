@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,7 @@ const Login = () => {
     password: "",
   });
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication status
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -35,6 +36,10 @@ const Login = () => {
       console.log(response.data);
       alert("Login Successful");
       navigate("/"); // Redirect to the home page
+      const token = response.data.data.accessToken;
+      if (token) {
+        setIsAuthenticated(true);
+      }
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -78,23 +83,10 @@ const Login = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="form-outline mb-4">
                       <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        className="form-control form-control-lg"
-                        onChange={handleChange}
-                      />
-                      <label className="form-label" htmlFor="email">
-                        Email
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
                         type="text"
                         id="userName"
                         name="userName"
-                        value={formData.userName}
+                        value={formData.userName || formData.email}
                         className="form-control form-control-lg"
                         onChange={handleChange}
                       />
@@ -126,9 +118,9 @@ const Login = () => {
                     </div>
                     <p className="text-center text-muted mt-5 mb-0">
                       Don't have an account?{" "}
-                      <Link to={"/"} className="fw-bold text-body">
+                      <a href="/signup" className="fw-bold text-body">
                         <u>Sign Up here</u>
-                      </Link>
+                      </a>
                     </p>
                   </form>
                 </div>
