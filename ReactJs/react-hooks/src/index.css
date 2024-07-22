@@ -1,0 +1,111 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  background-color: #191a1d;
+  color: #a29898;
+}
+
+.main_header {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  justify-items: center;
+}
+
+.use_state_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  border: 1px solid yellow;
+  padding: 2rem;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.use_reducer_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  border: 1px solid yellow;
+  padding: 2rem;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.use_state_main,
+.use_reducer_main button {
+  padding: 10px;
+  background-color: aliceblue;
+  font-weight: bold;
+  color: #191a1d;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  margin: 2rem;
+}
+
+.fruit__list__main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.fruit__list__main li {
+  background-color: #ffc7ed;
+  color: #304463;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.main-content {
+  margin-left: 0;
+  transition: margin-left 0.3s;
+}
+
+.main-content.shifted {
+  margin-left: 250px;
+}
