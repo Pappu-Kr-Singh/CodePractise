@@ -51,7 +51,7 @@ const SignUp = () => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       alert("User Registered Successfully");
 
       navigate("/login");
@@ -71,6 +71,142 @@ const SignUp = () => {
   };
 
   return (
+    // <section
+    //   className="vh-70 bg-image"
+    //   style={{
+    //     backgroundImage:
+    //       "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')",
+    //   }}
+    // >
+    //   <div className="mask d-flex align-items-center h-100 gradient-custom-3">
+    //     <div className="container h-100">
+    //       <div className="row d-flex justify-content-center align-items-center h-100">
+    //         <div className="col-12 col-md-9 col-lg-7 col-xl-6">
+    //           <div className="card" style={{ borderRadius: "15px" }}>
+    //             <div className="card-body p-5">
+    //               <h2 className="text-uppercase text-center mb-5">
+    //                 Create an account
+    //               </h2>
+
+    //               <form onSubmit={handleSubmit}>
+    //                 <div className="form-outline mb-4">
+    //                   <input
+    //                     type="text"
+    //                     id="userName"
+    //                     name="userName"
+    //                     value={formData.userName}
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="userName">
+    //                     Username
+    //                   </label>
+    //                 </div>
+    //                 <div className="form-outline mb-4">
+    //                   <input
+    //                     type="text"
+    //                     id="name"
+    //                     name="fullName"
+    //                     value={formData.fullName}
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="fullName">
+    //                     Full Name
+    //                   </label>
+    //                 </div>
+    //                 <div className="form-outline mb-4">
+    //                   <input
+    //                     type="email"
+    //                     id="email"
+    //                     name="email"
+    //                     value={formData.email}
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="email">
+    //                     Your Email
+    //                   </label>
+    //                 </div>
+    //                 <div className="form-outline mb-4">
+    //                   <input
+    //                     type="password"
+    //                     id="password"
+    //                     name="password"
+    //                     value={formData.password}
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="password">
+    //                     Password
+    //                   </label>
+    //                 </div>
+    //                 <div className="form-outline mb-4">
+    //                   <input
+    //                     type="file"
+    //                     id="avatar"
+    //                     name="avatar"
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleFileChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="avatar">
+    //                     Avatar Image
+    //                   </label>
+    //                 </div>
+
+    //                 {/* <div className="form-outline mb-4">
+    //                   <input
+    //                     type="file"
+    //                     id="coverImage"
+    //                     name="coverImage"
+    //                     className="form-control form-control-lg"
+    //                     onChange={handleFileChange}
+    //                   />
+    //                   <label className="form-label" htmlFor="avatar">
+    //                     Cover Image
+    //                   </label>
+    //                 </div> */}
+
+    //                 <div className="form-check d-flex justify-content-center mb-5">
+    //                   <input
+    //                     className="form-check-input me-2"
+    //                     type="checkbox"
+    //                     value=""
+    //                     id="form2Example3cg"
+    //                   />
+    //                   <label
+    //                     className="form-check-label"
+    //                     htmlFor="form2Example3g"
+    //                   >
+    //                     I agree all statements in{" "}
+    //                     <a href="#!" className="text-body">
+    //                       <u>Terms of service</u>
+    //                     </a>
+    //                   </label>
+    //                 </div>
+    //                 <div className="d-flex justify-content-center">
+    //                   <button
+    //                     type="submit"
+    //                     className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+    //                   >
+    //                     Register
+    //                   </button>
+    //                 </div>
+    //                 <p className="text-center text-muted mt-5 mb-0">
+    //                   Have already an account?{" "}
+    //                   <a href="#!" className="fw-bold text-body">
+    //                     <u>Login here</u>
+    //                   </a>
+    //                 </p>
+    //               </form>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+
     <section
       className="vh-70 bg-image"
       style={{
@@ -78,133 +214,106 @@ const SignUp = () => {
           "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')",
       }}
     >
-      <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div className="card" style={{ borderRadius: "15px" }}>
-                <div className="card-body p-5">
-                  <h2 className="text-uppercase text-center mb-5">
-                    Create an account
-                  </h2>
-
-                  <form onSubmit={handleSubmit}>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="text"
-                        id="userName"
-                        name="userName"
-                        value={formData.userName}
-                        className="form-control form-control-lg"
-                        onChange={handleChange}
-                      />
-                      <label className="form-label" htmlFor="userName">
-                        Username
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="text"
-                        id="name"
-                        name="fullName"
-                        value={formData.fullName}
-                        className="form-control form-control-lg"
-                        onChange={handleChange}
-                      />
-                      <label className="form-label" htmlFor="fullName">
-                        Full Name
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        className="form-control form-control-lg"
-                        onChange={handleChange}
-                      />
-                      <label className="form-label" htmlFor="email">
-                        Your Email
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        className="form-control form-control-lg"
-                        onChange={handleChange}
-                      />
-                      <label className="form-label" htmlFor="password">
-                        Password
-                      </label>
-                    </div>
-                    <div className="form-outline mb-4">
-                      <input
-                        type="file"
-                        id="avatar"
-                        name="avatar"
-                        className="form-control form-control-lg"
-                        onChange={handleFileChange}
-                      />
-                      <label className="form-label" htmlFor="avatar">
-                        Avatar Image
-                      </label>
-                    </div>
-
-                    {/* <div className="form-outline mb-4">
-                      <input
-                        type="file"
-                        id="coverImage"
-                        name="coverImage"
-                        className="form-control form-control-lg"
-                        onChange={handleFileChange}
-                      />
-                      <label className="form-label" htmlFor="avatar">
-                        Cover Image
-                      </label>
-                    </div> */}
-
-                    <div className="form-check d-flex justify-content-center mb-5">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="form2Example3cg"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="form2Example3g"
-                      >
-                        I agree all statements in{" "}
-                        <a href="#!" className="text-body">
-                          <u>Terms of service</u>
-                        </a>
-                      </label>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <button
-                        type="submit"
-                        className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                      >
-                        Register
-                      </button>
-                    </div>
-                    <p className="text-center text-muted mt-5 mb-0">
-                      Have already an account?{" "}
-                      <a href="#!" className="fw-bold text-body">
-                        <u>Login here</u>
-                      </a>
-                    </p>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+      <form className="form" onSubmit={handleSubmit}>
+        <p id="heading">Create an account</p>
+        <div className="field">
+          <svg
+            className="input-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+          </svg>
+          <input
+            autoComplete="off"
+            placeholder="Username"
+            className="input-field"
+            type="text"
+            id="userName"
+            name="userName"
+            value={formData.userName}
+            onChange={handleChange}
+          />
         </div>
-      </div>
+        <div className="field">
+          <svg
+            className="input-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+          </svg>
+          <input
+            placeholder="Password"
+            className="input-field"
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          <input
+            type="text"
+            id="name"
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
+            className="input-field"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            className="input-field"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field">
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            className="input-field"
+            onChange={handleFileChange}
+          />
+        </div>
+        <div className="form-check d-flex justify-content-center mb-5">
+          <input
+            className="form-check-input me-2"
+            type="checkbox"
+            value=""
+            id="form2Example3cg"
+          />
+          <label className="form-check-label" htmlFor="form2Example3g">
+            I agree to all statements in{" "}
+            <a href="#!" className="text-body">
+              <u>Terms of service</u>
+            </a>
+          </label>
+        </div>
+        <div className="btn">
+          <button className="button1" type="submit">
+            Register
+          </button>
+          <button className="button2" onClick={() => setIsSignUp(true)}>
+            Login
+          </button>
+        </div>
+        <button className="button3">Forgot Password</button>
+      </form>
     </section>
   );
 };

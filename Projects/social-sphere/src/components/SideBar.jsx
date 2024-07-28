@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 function SideBar({ isAuthenticated }) {
-  // state to track if the user is authenticated
   const [auth, setAuth] = useState(false);
-
-  //check authentication status on component mount
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    // You can replace this with an actual check
     if (isAuthenticated) {
       setAuth(true);
     }
-    // console.log("Token", token);
-    // if (token) {
-    //   setIsAuthenticated(true);
-    // }
   }, []);
 
   return (
@@ -55,7 +49,7 @@ function SideBar({ isAuthenticated }) {
             </Link>
           </li>
 
-          {!auth ? (
+          {!currentUser ? (
             <>
               <li>
                 <Link to={"/sign-up"} className="nav-link link-body-emphasis">
@@ -76,12 +70,12 @@ function SideBar({ isAuthenticated }) {
             </>
           ) : (
             <li>
-              <a href="#" className="nav-link link-body-emphasis">
+              <Link to="/" className="nav-link link-body-emphasis">
                 <svg className="bi pe-none me-2" width="16" height="16">
                   <use xlinkHref="#people-circle"></use>
                 </svg>
-                Logout
-              </a>
+                Market Place
+              </Link>
             </li>
           )}
         </ul>
