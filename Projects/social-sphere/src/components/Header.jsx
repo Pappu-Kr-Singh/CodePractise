@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+import axios from "axios";
 
 const Header = () => {
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // console.log(currentUser);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/v1/users/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
+          },
+        }
+      );
+      // console.log(response.data);
+      alert("Logout Successful");
+      setCurrentUser(null);
+      navigate("/"); // Redirect to the home page
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("An error occurred during logout. Please try again.");
+    }
+  };
+
   return (
     <>
       <header className="p-3 mb-3 border-bottom">
@@ -24,22 +53,22 @@ const Header = () => {
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li>
                 <a href="#" className="nav-link px-2 link-secondary">
-                  Overview
+                  New Post
                 </a>
               </li>
               <li>
                 <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Inventory
+                  Groups
                 </a>
               </li>
               <li>
                 <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Customers
+                  About Us
                 </a>
               </li>
               <li>
                 <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Products
+                  Contact us
                 </a>
               </li>
             </ul>
@@ -63,38 +92,35 @@ const Header = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <img
-                  src="https://github.com/mdo.png"
-                  alt="mdo"
-                  width="32"
-                  height="32"
-                  className="rounded-circle"
-                />
+                {currentUser ? (
+                  <img
+                    src={
+                      currentUser?.data?.user?.avatar || "default-avatar-url"
+                    }
+                    alt="mdo"
+                    width="32"
+                    height="32"
+                    className="rounded-circle"
+                  />
+                ) : (
+                  ""
+                )}
               </a>
               <ul className="dropdown-menu text-small" style={{}}>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    New project...
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Settings
-                  </a>
-                </li>
                 <li>
                   <a className="dropdown-item" href="#">
                     Profile
                   </a>
                 </li>
+
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
+                <Link>
+                  <button className="dropdown-item" onClick={handleLogout}>
                     Sign out
-                  </a>
-                </li>
+                  </button>
+                </Link>
               </ul>
             </div>
           </div>

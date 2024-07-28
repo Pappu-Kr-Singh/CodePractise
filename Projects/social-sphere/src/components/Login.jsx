@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ const Login = () => {
     userName: "",
     password: "",
   });
+
+  const { updateUser } = useContext(AuthContext);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication status
   const navigate = useNavigate();
@@ -35,11 +38,8 @@ const Login = () => {
       );
       console.log(response.data);
       alert("Login Successful");
+      updateUser(response.data);
       navigate("/"); // Redirect to the home page
-      const token = response.data.data.accessToken;
-      if (token) {
-        setIsAuthenticated(true);
-      }
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -118,7 +118,7 @@ const Login = () => {
                     </div>
                     <p className="text-center text-muted mt-5 mb-0">
                       Don't have an account?{" "}
-                      <a href="/signup" className="fw-bold text-body">
+                      <a href="/sign-up" className="fw-bold text-body">
                         <u>Sign Up here</u>
                       </a>
                     </p>
