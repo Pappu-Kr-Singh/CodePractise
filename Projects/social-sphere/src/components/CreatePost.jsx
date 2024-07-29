@@ -6,7 +6,7 @@ import { AuthContext } from "../context/authContext";
 
 const CreatePost = () => {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const { addPost } = useContext(PostList);
   const [formData, setFormData] = useState({
@@ -77,8 +77,9 @@ const CreatePost = () => {
 
   return (
     <div className="create__post">
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="mb-3">
+      <form className="form create_post__form" onSubmit={handleSubmit}>
+        <h1 className="text-center bg-transparent">Create Post</h1>
+        <div className="mb-3 input__fields">
           <label htmlFor="userId" className="form-label">
             Enter Your User Id here
           </label>
@@ -166,7 +167,7 @@ const CreatePost = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-secondary">
           Publish Post
         </button>
       </form>

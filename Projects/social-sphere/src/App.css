@@ -1,5 +1,14 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  background-color: #252525;
+  /* color: white; */
+}
+
 .app-container {
   display: flex;
+  background-color: #252525;
+  color: white;
 }
 .content {
   width: 100%;
@@ -27,11 +36,6 @@
   height: 25px;
   margin-right: 5px;
 }
-.creat__post {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .welcome__message {
   margin: 4rem 0rem;
@@ -39,6 +43,30 @@
 
 .spinner {
   margin: 2rem 0rem;
+}
+
+.fs-4 {
+  display: flex;
+  width: 300px;
+  justify-content: center;
+  /* border: 1px solid grey; */
+}
+
+.logo {
+  width: 150px;
+  height: 80px;
+  align-content: center;
+}
+
+.p-3 .mb-3 {
+  background-color: #252525 !important;
+}
+
+/***************   NavBar       *************/
+
+.nav li a {
+  color: #c5bdbd;
+  font-weight: 500;
 }
 
 /********************SIGNUP STYLES *******************/
@@ -105,7 +133,7 @@ section {
   display: flex;
   justify-content: center;
   flex-direction: row;
-  margin-top: 2.5em;
+  margin-top: 0.5em;
 }
 
 .button1 {
@@ -157,4 +185,69 @@ section {
 .button3:hover {
   background-color: red;
   color: white;
+}
+
+.search__input input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ac2727;
+}
+
+.search__input input::placeholder {
+  color: rgb(123, 119, 119);
+  font-weight: bold;
+  border: none;
+}
+
+/******* Create post ***********************/
+
+.create__post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create_post__form {
+  width: 50%;
+  margin: 2rem;
+  align-self: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.create__post input {
+  background-color: #171717;
+  border: 1px solid rgb(43, 42, 42);
+}
+
+.create__post label {
+  background-color: #171717;
+  color: #676666;
+  font-weight: bold;
+}
+
+.create__post input::placeholder {
+  color: #676666;
+}
+
+.mb-3 {
+  background-color: #171717;
+}
+
+.mb-3 textarea {
+  background-color: #171717;
+  border: 1px solid rgb(43, 42, 42);
+}
+
+.mb-3 textarea::placeholder {
+  color: #676666;
+}
+
+/************ Footer ***************/
+
+.nav .nav-item li {
+  color: #676666;
+}
+
+.nav-item li Link {
+  color: #676666;
 }

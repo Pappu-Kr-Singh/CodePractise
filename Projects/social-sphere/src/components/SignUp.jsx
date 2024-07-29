@@ -207,13 +207,7 @@ const SignUp = () => {
     //   </div>
     // </section>
 
-    <section
-      className="vh-70 bg-image"
-      style={{
-        backgroundImage:
-          "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')",
-      }}
-    >
+    <section className="vh-70 bg-image">
       <form className="form" onSubmit={handleSubmit}>
         <p id="heading">Create an account</p>
         <div className="field">
@@ -299,8 +293,8 @@ const SignUp = () => {
           />
           <label className="form-check-label" htmlFor="form2Example3g">
             I agree to all statements in{" "}
-            <a href="#!" className="text-body">
-              <u>Terms of service</u>
+            <a href="#!" className="text-body ">
+              <u className="text-warning">Terms of service</u>
             </a>
           </label>
         </div>

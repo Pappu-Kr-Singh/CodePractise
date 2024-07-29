@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="p-3 mb-3 border-bottom">
+      <header className="bg-dark p-3 mb-3 border-bottom">
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a
@@ -52,34 +52,34 @@ const Header = () => {
 
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li>
-                <a href="#" className="nav-link px-2 link-secondary">
+                <Link to={"/"} className="nav-link px-2 ">
                   New Post
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
+                <Link to={"/"} className="nav-link px-2 ">
                   Groups
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
+                <Link to={"/"} className="nav-link px-2 ">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
+                <Link to={"/"} className="nav-link px-2 ">
                   Contact us
-                </a>
+                </Link>
               </li>
             </ul>
 
             <form
-              className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+              className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 search__input"
               role="search"
             >
               <input
                 type="search"
-                className="form-control"
+                className="form-control bg-dark"
                 placeholder="Search..."
                 aria-label="Search"
               />
@@ -88,7 +88,7 @@ const Header = () => {
             <div className="dropdown text-end">
               <a
                 href="#"
-                className="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                className="d-block link-body-emphasis text-decoration-none dropdown-toggle text-white"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
@@ -108,7 +108,7 @@ const Header = () => {
               </a>
               <ul className="dropdown-menu text-small" style={{}}>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item bg-light" href="#">
                     Profile
                   </a>
                 </li>
