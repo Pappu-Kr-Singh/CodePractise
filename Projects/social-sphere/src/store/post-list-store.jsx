@@ -52,6 +52,7 @@ const PostListProvider = ({ children }) => {
         posts,
       },
     });
+    console.log(posts);
   };
 
   const deletePost = (postId) => {
