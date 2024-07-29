@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { MdDelete } from "react-icons/md";
 import { FcLike } from "react-icons/fc";
 import { PostList as PostListData } from "../store/post-list-store";
 
 const Post = ({ post }) => {
-  const { deletePost } = useContext(PostListData);
+  // Log post object to debug
+  // console.log(post);
 
-  console.log(post.postImg);
+  // Ensure post.tags is an array before mapping
+  const tags = Array.isArray(post.tags) ? post.tags : [];
 
   return (
     <div>
@@ -16,18 +17,9 @@ const Post = ({ post }) => {
       >
         <img src={post.postImg} className="card-img-top" alt="..." />
         <div className="card-body ">
-          <h5 className="card-title text-white">
-            {post.title}
-            {/* <span
-              className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              onClick={() => deletePost(post.id)}
-            >
-              <MdDelete />
-              <span className="visually-hidden">unread messages</span>
-            </span> */}
-          </h5>
+          <h5 className="card-title text-white">{post.title}</h5>
           <p className="card-text text-white">{post.description}</p>
-          {post.tags?.map((tag) => (
+          {tags.map((tag) => (
             <span key={tag} className="badge text-bg-primary hashtag">
               {tag}
             </span>

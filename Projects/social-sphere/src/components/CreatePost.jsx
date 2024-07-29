@@ -52,14 +52,14 @@ const CreatePost = () => {
         data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
           },
         }
       );
       console.log(response.data);
       alert("Post Created Successfully");
 
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Error during creating post:", error.response.data);
       alert("Error creating post, please try again.");

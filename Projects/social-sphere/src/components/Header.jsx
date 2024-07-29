@@ -93,24 +93,31 @@ const Header = () => {
                 aria-expanded="false"
               >
                 {currentUser ? (
-                  <img
-                    src={
-                      currentUser?.data?.user?.avatar || "default-avatar-url"
-                    }
-                    alt="mdo"
-                    width="32"
-                    height="32"
-                    className="rounded-circle"
-                  />
+                  <span className="m-2">
+                    <img
+                      src={
+                        currentUser?.data?.user?.avatar || "default-avatar-url"
+                      }
+                      alt="mdo"
+                      width="32"
+                      height="32"
+                      className="rounded-circle"
+                    />{" "}
+                    {currentUser.data.user.userName}
+                  </span>
                 ) : (
                   ""
                 )}
               </a>
               <ul className="dropdown-menu text-small" style={{}}>
                 <li>
-                  <a className="dropdown-item bg-light" href="#">
+                  <Link
+                    to={"/profile"}
+                    className="dropdown-item bg-light"
+                    href="#"
+                  >
                     Profile
-                  </a>
+                  </Link>
                 </li>
 
                 <li>

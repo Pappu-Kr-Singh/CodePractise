@@ -11,7 +11,7 @@ function PostList() {
   const [fetching, setFetching] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
-  console.log(postList);
+  // console.log(postList);
 
   useEffect(() => {
     const fetchData = async () => {
