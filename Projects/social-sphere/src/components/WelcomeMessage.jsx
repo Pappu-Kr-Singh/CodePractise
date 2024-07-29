@@ -3,7 +3,7 @@ import React from "react";
 const WelcomeMessage = () => {
   return (
     <center className="welcome__message">
-      <h1>There are no post</h1>
+      <h3 className="text-secondary">There are no post!!</h3>
     </center>
   );
 };

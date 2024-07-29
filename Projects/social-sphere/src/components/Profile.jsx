@@ -2,11 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/authContext";
 import { FcLike } from "react-icons/fc";
 import axios from "axios";
+import WelcomeMessage from "./WelcomeMessage";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
   const [fetching, setFetching] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [postImg, setPostImg] = useState(null);
+
+  // console.log(currentUser.data.user._id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +42,55 @@ const Profile = () => {
     fetchData();
   }, [currentUser]);
 
+  const handleDelete = async (postId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/v1/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${currentUser?.data.accessToken}`,
+        },
+      });
+      setPosts(posts.filter((post) => post._id !== postId));
+    } catch (error) {
+      console.error("Delete error:", error);
+    }
+  };
+
+  const handleUpdate = (post) => {
+    setSelectedPost(post);
+    setTitle(post.title || ""); // Ensure title is never undefined
+    setDescription(post.description || ""); // Ensure description is never undefined
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    if (postImg) {
+      formData.append("postImg", postImg);
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.data.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const updatedPost = response.data.data;
+      setPosts(
+        posts.map((post) => (post._id === updatedPost._id ? updatedPost : post))
+      );
+      setSelectedPost(null);
+    } catch (error) {
+      console.error("Update error:", error);
+    }
+  };
+
   return (
     <>
       <main id="profile">
@@ -50,6 +106,10 @@ const Profile = () => {
             <div className="Name">
               <p>{currentUser.data.user.userName}</p>
             </div>
+            <span className="text-white">
+              id:
+              <p className="text-secondary">{currentUser.data.user._id}</p>
+            </span>
             <div className="socialbar">
               <a id="github" href="#">
                 <svg
@@ -116,6 +176,7 @@ const Profile = () => {
 
       <h1 className="text-center">Your Post</h1>
       <div className="your__post">
+        {!fetching && posts.length === 0 && <WelcomeMessage />}
         {fetching ? (
           <p>Loading...</p>
         ) : (
@@ -138,11 +199,61 @@ const Profile = () => {
                   <FcLike className="likeIcon" />
                   {`this post has been liked by ${post.reactions} people!`}
                 </div>
+                <div className="deleteNupdata_btn">
+                  <button
+                    className="rounded"
+                    onClick={() => handleUpdate(post._id)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="btn-danger text-white bg-danger rounded"
+                    onClick={() => handleDelete(post._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))
         )}
       </div>
+      {selectedPost && (
+        <form onSubmit={handleUpdateSubmit} className="update-form">
+          <h3>Update Post</h3>
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="postImg">Image</label>
+            <input
+              type="file"
+              id="postImg"
+              onChange={(e) => setPostImg(e.target.files[0])}
+            />
+          </div>
+          <button type="submit">Update</button>
+          <button type="button" onClick={() => setSelectedPost(null)}>
+            Cancel
+          </button>
+        </form>
+      )}
     </>
   );
 };

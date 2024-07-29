@@ -30,7 +30,7 @@ router
 router.get("/:userId", getAllPostById);
 router.route("/:postId").delete(deletePost).patch(updatePost);
 
-// router.patch("/:postId", updatePost);
-// router.delete("/:postId", deletePost);
+router.put("/:postId", updatePost);
+router.delete("/:postId", deletePost);
 
 export default router;
