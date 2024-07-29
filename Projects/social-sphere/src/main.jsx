@@ -8,6 +8,8 @@ import PostList from "./components/PostList.jsx";
 import Login from "./components/Login.jsx";
 import { AuthContextProvider } from "./context/authContext.jsx";
 import Profile from "./components/Profile.jsx";
+import AboutUs from "./components/AboutUs.jsx";
+import Contact from "./components/Contact.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
       { path: "/sign-up", element: <SignUp /> },
       { path: "/login", element: <Login /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/about-us", element: <AboutUs /> },
+      { path: "/contact-us", element: <Contact /> },
       { path: "/create-post", element: <CreatePost /> },
     ],
   },

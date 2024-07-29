@@ -62,12 +62,12 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link px-2 ">
+                <Link to={"/about-us"} className="nav-link px-2 ">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link px-2 ">
+                <Link to={"/contact-us"} className="nav-link px-2 ">
                   Contact us
                 </Link>
               </li>
