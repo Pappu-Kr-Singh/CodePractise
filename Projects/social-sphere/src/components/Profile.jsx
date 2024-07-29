@@ -1,31 +1,60 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/authContext";
+import { FcLike } from "react-icons/fc";
+import axios from "axios";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
+  const [fetching, setFetching] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  console.log(currentUser);
+  useEffect(() => {
+    const fetchData = async () => {
+      setFetching(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/posts/${currentUser.data.user._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
+            },
+          }
+        );
+
+        const jsonData = response.data.data;
+        // console.log(jsonData);
+        setPosts(jsonData);
+        setFetching(false);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setFetching(false);
+      }
+    };
+
+    fetchData();
+  }, [currentUser]);
 
   return (
     <>
-      <section>
-        <div class="card">
+      <main id="profile">
+        <div className="card">
           <center>
-            <div class="profileimage">
+            <div className="profileimage">
               <img
                 className="profile__img"
                 src={currentUser.data.user.avatar}
                 alt=""
               />
             </div>
-            <div class="Name">
+            <div className="Name">
               <p>{currentUser.data.user.userName}</p>
             </div>
-            <div class="socialbar">
+            <div className="socialbar">
               <a id="github" href="#">
                 <svg
                   viewBox="0 0 16 16"
-                  class="bi bi-github"
+                  className="bi bi-github"
                   fill="currentColor"
                   height="16"
                   width="16"
@@ -38,7 +67,7 @@ const Profile = () => {
               <a id="instagram" href="#">
                 <svg
                   viewBox="0 0 16 16"
-                  class="bi bi-instagram"
+                  className="bi bi-instagram"
                   fill="currentColor"
                   height="16"
                   width="16"
@@ -51,7 +80,7 @@ const Profile = () => {
               <a id="facebook" href="#">
                 <svg
                   viewBox="0 0 16 16"
-                  class="bi bi-facebook"
+                  className="bi bi-facebook"
                   fill="currentColor"
                   height="16"
                   width="16"
@@ -64,7 +93,7 @@ const Profile = () => {
               <a id="twitter" href="#">
                 <svg
                   viewBox="0 0 16 16"
-                  class="bi bi-twitter"
+                  className="bi bi-twitter"
                   fill="currentColor"
                   height="16"
                   width="16"
@@ -76,7 +105,44 @@ const Profile = () => {
             </div>
           </center>
         </div>
-      </section>
+
+        <div className="profile__features">
+          <button id="btn">Update Profile</button>
+          <button id="btn">Change Password</button>
+        </div>
+      </main>
+
+      <hr />
+
+      <h1 className="text-center">Your Post</h1>
+      <div className="your__post">
+        {fetching ? (
+          <p>Loading...</p>
+        ) : (
+          posts.map((post) => (
+            <div
+              className="card post-card"
+              style={{ width: "20rem", margin: "2rem 0rem" }}
+              key={post._id}
+            >
+              <img src={post.postImg} className="card-img-top" alt="..." />
+              <div className="card-body ">
+                <h5 className="card-title text-white">{post.title}</h5>
+                <p className="card-text text-white">{post.description}</p>
+                {post.tags?.map((tag) => (
+                  <span key={tag} className="badge text-bg-primary hashtag">
+                    {tag}
+                  </span>
+                ))}
+                <div className="alert alert-info" role="alert">
+                  <FcLike className="likeIcon" />
+                  {`this post has been liked by ${post.reactions} people!`}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </>
   );
 };

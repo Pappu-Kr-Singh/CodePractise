@@ -79,7 +79,7 @@ const Header = () => {
             >
               <input
                 type="search"
-                className="form-control bg-dark"
+                className="form-control bg-dark text-white"
                 placeholder="Search..."
                 aria-label="Search"
               />

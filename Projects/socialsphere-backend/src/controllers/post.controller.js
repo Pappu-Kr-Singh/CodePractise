@@ -6,7 +6,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllPostById = asyncHandler(async (req, res) => {
-  // Todo- Get all post
+  // Todo- Get all post by userID
   const { userId } = req.params;
   // console.log(userId);
   // 667069c207c28a1763dc109c
