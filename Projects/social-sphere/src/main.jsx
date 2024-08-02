@@ -10,6 +10,7 @@ import { AuthContextProvider } from "./context/authContext.jsx";
 import Profile from "./components/Profile.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import Contact from "./components/Contact.jsx";
+import UpdatePost from "./components/UpdatePost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/about-us", element: <AboutUs /> },
       { path: "/contact-us", element: <Contact /> },
+      { path: "/profile/update-post", element: <UpdatePost /> },
       { path: "/create-post", element: <CreatePost /> },
     ],
   },

@@ -4,14 +4,15 @@ import { FcLike } from "react-icons/fc";
 import axios from "axios";
 import WelcomeMessage from "./WelcomeMessage";
 
+import { useNavigate } from "react-router-dom";
+
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
   const [fetching, setFetching] = useState(false);
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [postImg, setPostImg] = useState(null);
+  const [postImg, setPostImg] = useState([]);
+  const [post, setPost] = useState({ title: "", description: "" });
 
   // console.log(currentUser.data.user._id);
 
@@ -57,37 +58,40 @@ const Profile = () => {
 
   const handleUpdate = (post) => {
     setSelectedPost(post);
-    setTitle(post.title || ""); // Ensure title is never undefined
-    setDescription(post.description || ""); // Ensure description is never undefined
+    setPost({
+      title: post.title || "",
+      description: post.description || "",
+      _id: post._id,
+    });
   };
+
+  const navigate = useNavigate();
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    if (postImg) {
-      formData.append("postImg", postImg);
-    }
+
+    const formData = new FormData(e.target);
+    const { title, description } = Object.fromEntries(formData);
+
+    console.log("clicked", selectedPost);
 
     try {
-      const response = await axios.put(
-        `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser?.data.accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      const updatedPost = response.data.data;
-      setPosts(
-        posts.map((post) => (post._id === updatedPost._id ? updatedPost : post))
-      );
-      setSelectedPost(null);
-    } catch (error) {
-      console.error("Update error:", error);
+      if (title || description || postImg[0]) {
+        const postRes = await axios.put(
+          `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser?.data.accessToken}`,
+            },
+          }
+        );
+        console.log(postRes.data);
+      }
+      navigate("/profile");
+    } catch (err) {
+      console.log(err);
+      setError(err.response?.data?.message || "An error occurred");
     }
   };
 
@@ -176,7 +180,7 @@ const Profile = () => {
 
       <h1 className="text-center">Your Post</h1>
       <div className="your__post">
-        {!fetching && posts.length === 0 && <WelcomeMessage />}
+        {/* {!fetching && posts.length === 0 && <WelcomeMessage />} */}
         {fetching ? (
           <p>Loading...</p>
         ) : (
@@ -218,16 +222,28 @@ const Profile = () => {
           ))
         )}
       </div>
+
       {selectedPost && (
         <form onSubmit={handleUpdateSubmit} className="update-form">
           <h3>Update Post</h3>
+          <div className="form-group">
+            <label htmlFor="postId">Post Id</label>
+            <input
+              type="text"
+              id="postId"
+              value={post._id}
+              onChange={(e) => setPost({ ...post, postId: e.target.value })}
+              defaultValue={selectedPost._id}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
               type="text"
               id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={post.title}
+              onChange={(e) => setPost({ ...post, title: e.target.value })}
               required
             />
           </div>
@@ -235,8 +251,10 @@ const Profile = () => {
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={post.description}
+              onChange={(e) =>
+                setPost({ ...post, description: e.target.value })
+              }
               required
             ></textarea>
           </div>

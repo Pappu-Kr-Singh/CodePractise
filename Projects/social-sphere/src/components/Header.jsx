@@ -9,6 +9,27 @@ const Header = () => {
 
   // console.log(currentUser);
 
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post(
+  //       "http://localhost:3000/api/v1/users/logout",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
+  //         },
+  //       }
+  //     );
+  //     // console.log(response.data);
+  //     alert("Logout Successful");
+  //     setCurrentUser(null);
+  //     navigate("/"); // Redirect to the home page
+  //   } catch (error) {
+  //     console.error("Error during logout:", error);
+  //     alert("An error occurred during logout. Please try again.");
+  //   }
+  // };
+
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -16,17 +37,41 @@ const Header = () => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
+            Authorization: `Bearer ${currentUser?.data.accessToken}`,
           },
         }
       );
-      // console.log(response.data);
       alert("Logout Successful");
       setCurrentUser(null);
-      navigate("/"); // Redirect to the home page
+      navigate("/");
     } catch (error) {
-      console.error("Error during logout:", error);
-      alert("An error occurred during logout. Please try again.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message === "jwt expired"
+      ) {
+        // Handle token refresh here
+        try {
+          const response = await axios.post(
+            "http://localhost:3000/api/v1/users/refresh-token",
+            {
+              refreshToken: currentUser?.data.refreshToken,
+            }
+          );
+          const { accessToken } = response.data.data;
+          // Update access token and retry logout
+          currentUser.data.accessToken = accessToken;
+          await handleLogout();
+        } catch (refreshError) {
+          console.error("Error during token refresh:", refreshError);
+          alert("Session expired. Please log in again.");
+          setCurrentUser(null);
+          navigate("/");
+        }
+      } else {
+        console.error("Error during logout:", error);
+        alert("An error occurred during logout. Please try again.");
+      }
     }
   };
 
@@ -110,24 +155,29 @@ const Header = () => {
                 )}
               </a>
               <ul className="dropdown-menu text-small" style={{}}>
-                <li>
-                  <Link
-                    to={"/profile"}
-                    className="dropdown-item bg-light"
-                    href="#"
-                  >
-                    Profile
-                  </Link>
-                </li>
-
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <Link>
-                  <button className="dropdown-item" onClick={handleLogout}>
-                    Sign out
-                  </button>
-                </Link>
+                {currentUser ? (
+                  <>
+                    <li>
+                      <Link
+                        to={"/profile"}
+                        className="dropdown-item bg-light"
+                        href="#"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <Link>
+                      <button className="dropdown-item" onClick={handleLogout}>
+                        Sign out
+                      </button>
+                    </Link>
+                  </>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
           </div>
