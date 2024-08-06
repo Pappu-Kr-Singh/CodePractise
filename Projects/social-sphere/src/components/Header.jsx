@@ -7,29 +7,6 @@ const Header = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // console.log(currentUser);
-
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.post(
-  //       "http://localhost:3000/api/v1/users/logout",
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
-  //         },
-  //       }
-  //     );
-  //     // console.log(response.data);
-  //     alert("Logout Successful");
-  //     setCurrentUser(null);
-  //     navigate("/"); // Redirect to the home page
-  //   } catch (error) {
-  //     console.error("Error during logout:", error);
-  //     alert("An error occurred during logout. Please try again.");
-  //   }
-  // };
-
   const handleLogout = async () => {
     try {
       await axios.post(

@@ -79,20 +79,6 @@ const CreatePost = () => {
     <div className="create__post">
       <form className="form create_post__form" onSubmit={handleSubmit}>
         <h1 className="text-center bg-transparent">Create Post</h1>
-        {/* <div className="mb-3 input__fields">
-          <label htmlFor="userId" className="form-label">
-            Enter Your User Id here
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="userId"
-            name="userId"
-            value={formData.userId}
-            onChange={handleChange}
-            placeholder="Enter your user Id "
-          />
-        </div> */}
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Post Title
