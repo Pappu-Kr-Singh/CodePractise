@@ -91,6 +91,7 @@ const updatePost = asyncHandler(async (req, res) => {
   const { postId } = req.params;
   const { title, description } = req.body;
   const { postImgLocalPath } = req.file?.path;
+  // console.log("post img local path"postImgLocalPath);
 
   if (!isValidObjectId(postId)) {
     throw new ApiError(401, "Invalid postId");

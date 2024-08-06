@@ -4,7 +4,7 @@ import { FcLike } from "react-icons/fc";
 import axios from "axios";
 import WelcomeMessage from "./WelcomeMessage";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -58,6 +58,7 @@ const Profile = () => {
 
   const handleUpdate = (post) => {
     setSelectedPost(post);
+    console.log(post);
     setPost({
       title: post.title || "",
       description: post.description || "",
@@ -67,34 +68,65 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
+  // const handleUpdateSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData(e.target);
+  //   const { title, description } = Object.fromEntries(formData);
+
+  //   console.log("clicked", selectedPost);
+
+  //   try {
+  //     const postRes = await axios.patch(
+  //       `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
+  //       { title, description },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${currentUser?.data.accessToken}`,
+  //         },
+  //       }
+  //     );
+
+  //     console.log("Insideclicked", selectedPost);
+  //     console.log(postRes.data);
+
+  //     navigate("/profile");
+  //   } catch (err) {
+  //     console.log(err);
+  //     setError(err.response?.data?.message || "An error occurred");
+  //   }
+  // };
+
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const { title, description } = Object.fromEntries(formData);
-
-    console.log("clicked", selectedPost);
+    const formData = new FormData();
+    formData.append("title", post.title);
+    formData.append("description", post.description);
+    if (postImg) {
+      formData.append("postImg", postImg);
+    }
 
     try {
-      if (title || description || postImg[0]) {
-        const postRes = await axios.put(
-          `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${currentUser?.data.accessToken}`,
-            },
-          }
-        );
-        console.log(postRes.data);
-      }
+      const postRes = await axios.patch(
+        `http://localhost:3000/api/v1/posts/${selectedPost._id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.data.accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Post updated:", postRes.data);
+
       navigate("/profile");
     } catch (err) {
       console.log(err);
       setError(err.response?.data?.message || "An error occurred");
     }
   };
-
   return (
     <>
       <main id="profile">
@@ -171,8 +203,11 @@ const Profile = () => {
         </div>
 
         <div className="profile__features">
-          <button id="btn">Update Profile</button>
-          <button id="btn">Change Password</button>
+          <Link to={"/profile/update-account-details"}>
+            <button id="btn">Update Account Details</button>
+          </Link>
+          <button id="btn">Change Current Password</button>
+          <button id="btn">Update User Profile Image</button>
         </div>
       </main>
 

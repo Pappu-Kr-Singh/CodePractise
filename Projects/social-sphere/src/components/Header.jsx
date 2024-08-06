@@ -7,6 +7,10 @@ const Header = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  if (!currentUser || !currentUser.data || !currentUser.data.user) {
+    return null; // or a loading indicator, or some other fallback UI
+  }
+
   const handleLogout = async () => {
     try {
       await axios.post(

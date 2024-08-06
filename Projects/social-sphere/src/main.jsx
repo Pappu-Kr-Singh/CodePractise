@@ -11,6 +11,7 @@ import Profile from "./components/Profile.jsx";
 import AboutUs from "./components/AboutUs.jsx";
 import Contact from "./components/Contact.jsx";
 import UpdatePost from "./components/UpdatePost.jsx";
+import UpdateAccountDetails from "./components/UpdateAccountDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       { path: "/contact-us", element: <Contact /> },
       { path: "/profile/update-post", element: <UpdatePost /> },
       { path: "/create-post", element: <CreatePost /> },
+      {
+        path: "/profile/update-account-details",
+        element: <UpdateAccountDetails />,
+      },
     ],
   },
 ]);

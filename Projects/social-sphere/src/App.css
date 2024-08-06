@@ -431,6 +431,7 @@ textarea {
   background-color: #1b1919; /* Light gray background */
   box-sizing: border-box; /* Include padding in width calculations */
   transition: border-color 0.3s; /* Smooth transition for border color */
+  color: #a1a3a5;
 }
 
 .update-form input:focus,
