@@ -124,7 +124,7 @@ const Header = ({ isAuthenticated }) => {
                     <svg className="bi pe-none me-2" width="16" height="16">
                       <use xlinkHref="#speedometer2"></use>
                     </svg>
-                    Create Post
+                    Add Rip
                   </Link>
                 </li>
               )}

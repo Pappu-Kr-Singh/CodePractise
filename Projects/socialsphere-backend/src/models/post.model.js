@@ -15,9 +15,29 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
+    birthPlace: {
+      type: String,
+      required: true,
+    },
+    burial: {
+      type: String,
+      required: true,
+    },
+    plot: {
+      type: String,
+      required: true,
+    },
     reactions: {
       type: Number,
       default: 0,
+    },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+    },
+    deathDate: {
+      type: Date,
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,

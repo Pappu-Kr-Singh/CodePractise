@@ -47,11 +47,38 @@ const getAllPost = asyncHandler(async (req, res) => {
 const createPost = asyncHandler(async (req, res) => {
   // Create post
 
-  const { title, description, reactions } = req.body;
+  const {
+    title,
+    description,
+    reactions,
+    dateOfBirth,
+    birthPlace,
+    burial,
+    plot,
+    deathDate,
+  } = req.body;
 
-  console.log("Req. body ===== ", title, description, reactions);
+  console.log(
+    "Req. body ===== ",
+    title,
+    description,
+    reactions,
+    dateOfBirth,
+    birthPlace,
+    burial,
+    plot,
+    deathDate
+  );
 
-  if (!title || !description || !reactions) {
+  if (
+    !title ||
+    !description ||
+    !reactions ||
+    !dateOfBirth ||
+    !birthPlace ||
+    !plot ||
+    !deathDate
+  ) {
     throw new ApiError(401, "title and description are required");
   }
 
@@ -73,6 +100,11 @@ const createPost = asyncHandler(async (req, res) => {
     description: description,
     owner: req.user._id,
     reactions: reactions,
+    birthPlace: birthPlace,
+    burial: burial,
+    plot: plot,
+    dateOfBirth: dateOfBirth,
+    deathDate: deathDate,
     postImg: postImg.url,
   });
 
@@ -152,4 +184,33 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, post, "Post has been deleted Successfully"));
 });
 
-export { getAllPost, createPost, deletePost, updatePost, getAllPostById };
+const getPostById = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  // Validate the postId
+  if (!isValidObjectId(postId)) {
+    throw new ApiError(401, "Invalid postId");
+  }
+
+  // Fetch the post by its ID
+  const post = await Post.findById(postId);
+
+  // If no post is found, return an error
+  if (!post) {
+    throw new ApiError(404, "Post not found");
+  }
+
+  // Send the post data as a response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, post, "Post has been fetched successfully"));
+});
+
+export {
+  getAllPost,
+  createPost,
+  deletePost,
+  updatePost,
+  getAllPostById,
+  getPostById,
+};

@@ -5,6 +5,7 @@ import {
   updatePost,
   deletePost,
   getAllPostById,
+  getPostById,
 } from "../controllers/post.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -28,8 +29,9 @@ router
     createPost
   );
 router.get("/:userId", getAllPostById);
-router.route("/:postId").delete(deletePost).patch(updatePost);
+// router.route("/:postId").delete(deletePost).patch(updatePost);
 
+router.get("/post/:postId", getPostById);
 router.patch("/:postId", updatePost);
 router.delete("/:postId", deletePost);
 

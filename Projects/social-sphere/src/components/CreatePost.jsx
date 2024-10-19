@@ -13,6 +13,11 @@ const CreatePost = () => {
     userId: "",
     postTitle: "",
     reactions: "",
+    birthPlace: "",
+    burial: "",
+    plot: "",
+    dateOfBirth: "",
+    deathDate: "",
     postBody: "",
     tags: "",
     postImg: null,
@@ -43,6 +48,11 @@ const CreatePost = () => {
     data.append("title", formData.postTitle);
     data.append("description", formData.postBody);
     data.append("reactions", formData.reactions);
+    data.append("birthPlace", formData.birthPlace);
+    data.append("burial", formData.burial);
+    data.append("plot", formData.plot);
+    data.append("dateOfBirth", formData.dateOfBirth);
+    data.append("deathDate", formData.deathDate);
     data.append("tags", formData.tags);
     data.append("postImg", formData.postImg);
 
@@ -56,7 +66,7 @@ const CreatePost = () => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       alert("Post Created Successfully");
 
       navigate("/");
@@ -70,6 +80,11 @@ const CreatePost = () => {
       formData.userId,
       formData.postTitle,
       formData.reactions,
+      formData.birthPlace,
+      formData.burial,
+      formData.plot,
+      formData.dateOfBirth,
+      formData.deathDate,
       formData.postBody,
       formData.tags
     );
@@ -78,10 +93,10 @@ const CreatePost = () => {
   return (
     <div className="create__post">
       <form className="form create_post__form" onSubmit={handleSubmit}>
-        <h1 className="text-center bg-transparent">Create Post</h1>
+        <h1 className="text-center bg-transparent">Add Rip</h1>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Post Title
+            Rip Name
           </label>
           <input
             type="text"
@@ -90,28 +105,88 @@ const CreatePost = () => {
             name="postTitle"
             value={formData.postTitle}
             onChange={handleChange}
-            placeholder="Your title..."
+            placeholder="George Washington..."
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="reactions" className="form-label">
-            No. of Reactions
+          <label htmlFor="dateOfBirth" className="form-label">
+            Date of Birth
+          </label>
+          <input
+            type="date"
+            className="form-control"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+            placeholder="dd/mm/yyyy"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="deathDate" className="form-label">
+            Death
+          </label>
+          <input
+            type="date"
+            className="form-control"
+            id="deathDate"
+            name="deathDate"
+            value={formData.deathDate}
+            onChange={handleChange}
+            placeholder="dd/mm/yyyy"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="birthPlace" className="form-label">
+            Birth Place
           </label>
           <input
             type="text"
             className="form-control"
-            id="reactions"
-            name="reactions"
-            value={formData.reactions}
+            id="birthPlace"
+            name="birthPlace"
+            value={formData.birthPlace}
             onChange={handleChange}
-            placeholder="How many people reacted to this post"
+            placeholder="Toronto Canada.."
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="burial" className="form-label">
+            Burial
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="burial"
+            name="burial"
+            value={formData.burial}
+            onChange={handleChange}
+            placeholder="NY USA.."
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="plot" className="form-label">
+            Plot
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="plot"
+            name="plot"
+            value={formData.plot}
+            onChange={handleChange}
+            placeholder="madrid span... "
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="body" className="form-label">
-            Content
+            Discription
           </label>
           <textarea
             rows="4"
@@ -121,13 +196,13 @@ const CreatePost = () => {
             name="postBody"
             value={formData.postBody}
             onChange={handleChange}
-            placeholder="Tell us more about it"
+            placeholder="Tell us more about him/her"
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="tags" className="form-label">
-            Enter your hashtags here
+            Enter Traits you like about him
           </label>
           <input
             type="text"
@@ -136,13 +211,28 @@ const CreatePost = () => {
             name="tags"
             value={formData.tags}
             onChange={handleChange}
-            placeholder="Please enter your tags using space"
+            placeholder="Please enter the traits using space"
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="reactions" className="form-label">
+            Number of Flowers
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="reactions"
+            name="reactions"
+            value={formData.reactions}
+            onChange={handleChange}
+            placeholder="number of flowers..."
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="postImg" className="form-label">
-            Choose your Post Image
+            Choose Rip Image
           </label>
           <input
             type="file"
@@ -154,7 +244,7 @@ const CreatePost = () => {
         </div>
 
         <button type="submit" className="btn btn-secondary">
-          Publish Post
+          Add Rip
         </button>
       </form>
     </div>

@@ -14,6 +14,7 @@ import UpdatePost from "./components/UpdatePost.jsx";
 import UpdateAccountDetails from "./components/UpdateAccountDetails.jsx";
 import Rip from "./components/Rip.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import PostDetails from "./components/PostDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,12 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/profile", element: <Profile /> },
       { path: "/about-us", element: <AboutUs /> },
-      { path: "/rip", element: <Rip /> },
+      { path: "/post/:_id", element: <Rip /> },
       { path: "/contact-us", element: <Contact /> },
       { path: "/profile/update-post", element: <UpdatePost /> },
       { path: "/create-post", element: <CreatePost /> },
+      // { path: "/post/:id", element: <PostDetails /> },
+
       {
         path: "/profile/update-account-details",
         element: <UpdateAccountDetails />,

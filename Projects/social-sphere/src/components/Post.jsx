@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
 import { FcLike } from "react-icons/fc";
 import { PostList as PostListData } from "../store/post-list-store";
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ post }) => {
   // Log post object to debug
   // console.log(post);
-
+  const navigate = useNavigate(); // Hook for navigation
   // Ensure post.tags is an array before mapping
   const tags = Array.isArray(post.tags) ? post.tags : [];
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    navigate(`/post/${post._id}`); // Navigate to the detailed post page
+    // console.log("clicked");
+  };
 
   return (
     <div
       onClick={handleClick}
       className="card post-card"
-      style={{ width: "20rem", margin: "2rem 0rem" }}
+      style={{ width: "20rem", margin: "2rem 0rem", cursor: "pointer" }}
     >
       <img src={post.postImg} className="card-img-top" alt="..." />
       <div className="card-body ">
@@ -28,7 +32,7 @@ const Post = ({ post }) => {
         ))}
         <div className="alert alert-info" role="alert">
           <FcLike className="likeIcon" />
-          {`this post has been liked by ${post.reactions} people!`}
+          {`this Rip has been flowered by ${post.reactions} people!`}
         </div>
       </div>
     </div>

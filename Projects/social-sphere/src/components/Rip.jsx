@@ -1,7 +1,56 @@
-import React from "react";
 import "./style.css";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/authContext";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function Rip() {
+  const { currentUser } = useContext(AuthContext);
+  const [fetching, setFetching] = useState(false);
+  const [post, setPost] = useState(null); // State to store the fetched post
+  const { _id } = useParams(); // Get postId from the URL
+
+  // console.log(currentUser.data.user);
+  // console.log(_id);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setFetching(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/posts/post/${_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${currentUser?.data.accessToken}`, // Use access token
+            },
+          }
+        );
+
+        const jsonData = response.data.data;
+        console.log(jsonData);
+        setPost(jsonData); // Store the fetched data in the state
+      } catch (error) {
+        console.error("Fetch error:", error);
+      } finally {
+        setFetching(false);
+      }
+    };
+
+    if (currentUser && _id) {
+      fetchData();
+    }
+  }, [currentUser, _id]);
+
+  // Helper function to format the date
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <>
       <div className="container mt-5">
@@ -9,36 +58,39 @@ function Rip() {
           <div className="row">
             <div className="col-md-3">
               <img
-                src="https://images.findagrave.com/photos/2022/211/1075_2e6825ad-43c5-41a5-a9c8-98259092e3b4.webp?size=photos250"
+                src={post?.postImg}
                 alt="George Washington"
                 className="img-fluid"
               />
             </div>
             <div className="col-md-9">
-              <h1 className="card-title">George Washington</h1>
+              {/* Display the title dynamically */}
+              <h1 className="card-title">{post?.title || "Loading..."}</h1>
               <div className="card-body">
                 <p>
-                  <strong>Birth:</strong> 22 Feb 1732
+                  <strong>Date of Birth:</strong>{" "}
+                  {post?.dateOfBirth
+                    ? formatDate(post.dateOfBirth)
+                    : "Loading..."}
                 </p>
                 <p>
-                  <strong>Location:</strong> Colonial Beach, Westmoreland
-                  County, Virginia, USA
+                  <strong>Birth Place:</strong> {post?.birthPlace}
                 </p>
                 <p>
-                  <strong>Death:</strong> 14 Dec 1799 (aged 67)
+                  <strong>Death:</strong>{" "}
+                  {post?.deathDate ? formatDate(post.deathDate) : "Loading..."}
                 </p>
                 <p>
-                  <strong>Location:</strong> Mount Vernon, Fairfax County,
-                  Virginia, USA
+                  <strong>Description:</strong> {post?.description}
                 </p>
                 <p>
                   <strong>Burial:</strong>{" "}
                   <a href="#" className="text-decoration-none">
-                    Mount Vernon Estate
+                    {post?.burial}
                   </a>
                 </p>
                 <p>
-                  <strong>Plot:</strong> Mount Vernon, New Tomb
+                  <strong>Plot:</strong> {post?.plot}
                 </p>
                 <p>
                   <strong>Memorial ID:</strong> 1075 •{" "}
