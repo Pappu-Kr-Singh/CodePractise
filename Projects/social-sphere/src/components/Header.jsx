@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 
-const Header = () => {
+const Header = ({ isAuthenticated }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [auth, setAuth] = useState(false);
+  //const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setAuth(true);
+    }
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -59,8 +67,9 @@ const Header = () => {
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a
               href="/"
-              className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
+              className="d-flex align-items-center text-white fw-bold mb-2 mb-lg-0 text-decoration-none"
             >
+              LifeBahn Heaven
               <svg
                 className="bi me-2"
                 width="40"
@@ -73,26 +82,68 @@ const Header = () => {
             </a>
 
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li>
-                <Link to={"/"} className="nav-link px-2 ">
-                  New Post
+              <li className="nav-item">
+                <Link
+                  to={"/"}
+                  className="nav-link  fw-bold "
+                  aria-current="page"
+                >
+                  <svg className="bi pe-none me-2" width="16" height="16">
+                    <use xlinkHref="#home"></use>
+                  </svg>
+                  Home
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link px-2 ">
+                <Link to={"/"} className="nav-link px-3">
+                  Recent Rips
+                </Link>
+              </li>
+              {!currentUser ? (
+                <>
+                  <li className="nav-item">
+                    <Link to={"/sign-up"} className="nav-link ">
+                      <svg className="bi pe-none me-2" width="16" height="16">
+                        <use xlinkHref="#table"></use>
+                      </svg>
+                      SignUp
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={"/login"} className="nav-link ">
+                      <svg className="bi pe-none me-2" width="16" height="16">
+                        <use xlinkHref="#grid"></use>
+                      </svg>
+                      Login
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <Link to={"/create-post"} className="nav-link fw-bold  ">
+                    <svg className="bi pe-none me-2" width="16" height="16">
+                      <use xlinkHref="#speedometer2"></use>
+                    </svg>
+                    Create Post
+                  </Link>
+                </li>
+              )}
+
+              {/* <li>
+                <Link to={"/"} className="nav-link px-3 ">
                   Groups
                 </Link>
-              </li>
+              </li> 
               <li>
-                <Link to={"/about-us"} className="nav-link px-2 ">
+                <Link to={"/about-us"} className="nav-link px-3 ">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to={"/contact-us"} className="nav-link px-2 ">
+                <Link to={"/contact-us"} className="nav-link px-3 ">
                   Contact us
                 </Link>
-              </li>
+              </li>*/}
             </ul>
 
             <form

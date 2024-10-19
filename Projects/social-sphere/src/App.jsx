@@ -17,9 +17,9 @@ function App() {
   return (
     <PostListProvider>
       <div className="app-container">
-        <SideBar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        {/* <SideBar /> */}
         <div className="content">
-          <Header />
+          <Header selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
           <Outlet />
 
