@@ -95,8 +95,13 @@ const Header = ({ isAuthenticated }) => {
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link px-3">
-                  Recent Rips
+                <Link to={"/memoriams"} className="nav-link px-3">
+                  Memoriams
+                </Link>
+              </li>
+              <li>
+                <Link to={"https://lifebahn.net/"} className="nav-link px-3">
+                  LifeBahn Portal
                 </Link>
               </li>
               {!currentUser ? (
